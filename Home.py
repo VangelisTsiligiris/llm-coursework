@@ -5,6 +5,12 @@ from lib.auth import login_view
 from lib.clients import get_config
 from lib.storage import get_student_dataframes
 
+import streamlit as st
+
+st.write("DEBUG SPREADSHEET_KEY:", st.secrets.get("env", {}).get("SPREADSHEET_KEY", "Not found"))
+
+
+
 st.set_page_config(page_title="LLM Coursework Helper", layout="wide")
 inject_css()
 
