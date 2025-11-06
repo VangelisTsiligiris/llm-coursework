@@ -33,6 +33,42 @@ if not st.session_state.get("__auth_ok"):
 # Logged in → role-specific welcome
 is_academic = st.session_state.get("is_academic", False)
 
+import streamlit as st
+
+# Inject CSS
+st.markdown("""
+<style>
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.card {
+  background: #ffffff;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+}
+.card h3 {
+  margin-top: 0;
+}
+.badge {
+  background: #4f8cff;
+  color: white;
+  font-size: 0.75rem;
+  padding: 3px 7px;
+  border-radius: 6px;
+  margin-left: 6px;
+}
+ul {
+  margin-top: 0.5rem;
+  padding-left: 1.2rem;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Hero section
 st.markdown(
     """
 <div class="hero">
@@ -44,7 +80,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# Two-column layout
 col1, col2 = st.columns(2)
+
 with col1:
     st.markdown(
         """
@@ -78,6 +116,7 @@ with col2:
 """,
         unsafe_allow_html=True,
     )
+
 
 with st.expander("Privacy & Ethics"):
     st.markdown(
