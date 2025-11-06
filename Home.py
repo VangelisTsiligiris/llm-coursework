@@ -7,7 +7,6 @@ from lib.storage import get_student_dataframes
 st.set_page_config(page_title="LLM Coursework Helper", layout="wide")
 
 # Inject all global CSS styles
-# Note: This will only style standard components now, not custom divs.
 inject_css() 
 
 cfg = get_config()
@@ -17,7 +16,6 @@ with st.sidebar:
     st.page_link("Home.py", label="🏠 Home", icon="🏠")
     st.page_link("pages/1_Student_Workspace.py", label="✍️ Student Workspace")
     st.page_link("pages/2_Academic_Dashboard.py", label="🎓 Academic Dashboard")
-
     st.divider()
     if st.session_state.get("__auth_ok"):
         st.caption(f"Signed in as: **{st.session_state.get('user_id','?')}**")
@@ -34,7 +32,7 @@ if not st.session_state.get("__auth_ok"):
 # Role flag
 is_academic = st.session_state.get("is_academic", False)
 
-# --- Hero section (Simplified) ---
+# --- Hero section ---
 st.header("LLM Coursework Helper")
 st.write(
     """
@@ -42,35 +40,28 @@ st.write(
     privacy-aware view of **process evidence** (chat turns & draft evolution).
     """
 )
+
 st.divider()
 
-# --- Two-column landing layout (Simplified) ---
+# --- Two-column landing layout ---
 col1, col2 = st.columns(2)
 
 with col1:
-    st.subheader("For Students (pilot)")
-    st.markdown(
-        """
-        * Brainstorm with the AI (all turns are logged).
-        * Draft in the rich editor; autosave & resume anytime.
-        * Run **similarity check** vs AI outputs to keep your own voice.
-        * Export a **DOCX evidence pack** (chat + draft + similarity).
-        * **Your responsibility:** follow assessment rules & cite sources.
-        """
-    )
+    st.subheader("For Students 🎓")
+    st.markdown("**pilot**", help="This is a pilot feature")
+    st.markdown("""
+    - **Draft & chat with the AI.** All turns are logged.
+    - **Autosave & resume later** with your Student ID.
+    - **Run similarity check** & export an evidence pack.
+    """)
 
 with col2:
-    st.subheader("For Academics")
-    st.markdown(
-        """
-        * Dashboard to review students’ **turn-by-turn** interactions.
-        * See **latest draft** and AI ↔ student exchanges.
-        * Suggested writing-alignment check for oversight (not grading).
-        * Data stored: timestamp, student ID (pseudonymous), assignment ID, prompt, response, latest draft snapshot.
-        * Data minimisation: no personal identifiers beyond the provided ID.
-        """
-    )
-
+    st.subheader("For Academics 📚")
+    st.markdown("""
+    - **Review turn-by-turn interactions** and latest drafts.
+    - **Optional writing-alignment view** for oversight.
+    - **Data minimisation:** only pseudonymous IDs.
+    """)
 
 with st.expander("Privacy & Ethics"):
     st.markdown(
@@ -82,7 +73,7 @@ with st.expander("Privacy & Ethics"):
 
 st.divider()
 
-# --- Quick links & stats (No change needed here) ---
+# --- Quick links & stats ---
 c1, c2, c3 = st.columns(3)
 
 with c1:
