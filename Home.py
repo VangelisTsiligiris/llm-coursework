@@ -1,12 +1,12 @@
-# Home.py
 import streamlit as st
 from lib.ui import inject_css
 from lib.auth import login_view
 from lib.clients import get_config
 from lib.storage import get_student_dataframes
 
-
 st.set_page_config(page_title="LLM Coursework Helper", layout="wide")
+
+# Inject all global CSS styles
 inject_css()
 
 cfg = get_config()
@@ -25,48 +25,13 @@ with st.sidebar:
                 del st.session_state[k]
             st.rerun()
 
-# Not logged in → show landing + login
+# Not logged in → show login screen instead
 if not st.session_state.get("__auth_ok"):
     login_view()
     st.stop()
 
-# Logged in → role-specific welcome
+# Role flag
 is_academic = st.session_state.get("is_academic", False)
-
-import streamlit as st
-
-# Inject CSS
-st.markdown("""
-<style>
-.hero {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-.card {
-  background: #ffffff;
-  padding: 1.25rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  border: 1px solid #e5e5e5;
-  box-shadow: 0 0 8px rgba(0,0,0,0.05);
-}
-.card h3 {
-  margin-top: 0;
-}
-.badge {
-  background: #4f8cff;
-  color: white;
-  font-size: 0.75rem;
-  padding: 3px 7px;
-  border-radius: 6px;
-  margin-left: 6px;
-}
-ul {
-  margin-top: 0.5rem;
-  padding-left: 1.2rem;
-}
-</style>
-""", unsafe_allow_html=True)
 
 # Hero section
 st.markdown(
@@ -80,7 +45,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Two-column layout
+# Two-column landing layout
 col1, col2 = st.columns(2)
 
 with col1:
@@ -117,7 +82,6 @@ with col2:
         unsafe_allow_html=True,
     )
 
-
 with st.expander("Privacy & Ethics"):
     st.markdown(
         """
@@ -128,17 +92,20 @@ We do **not** log personal identifiers beyond the ID you enter. The AI output is
 
 st.divider()
 
-# Quick links / stats
+# Quick links & stats
 c1, c2, c3 = st.columns(3)
+
 with c1:
     st.subheader("Jump in")
     st.page_link("pages/1_Student_Workspace.py", label="Open Student Workspace", icon="✍️")
     if is_academic:
         st.page_link("pages/2_Academic_Dashboard.py", label="Open Academic Dashboard", icon="🎓")
+
 with c2:
     st.subheader("Your context")
     st.write(f"**User ID:** {st.session_state.get('user_id','?')}")
     st.write(f"**Role:** {'Academic' if is_academic else 'Student'}")
+
 with c3:
     st.subheader("Workbook health")
     try:
@@ -147,4 +114,3 @@ with c3:
         st.write(f"Event turns: **{len(events_df)}**")
     except Exception as e:
         st.warning(f"Could not fetch workbook stats: {e}")
-
