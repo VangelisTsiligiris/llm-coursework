@@ -7,7 +7,8 @@ from lib.storage import get_student_dataframes
 st.set_page_config(page_title="LLM Coursework Helper", layout="wide")
 
 # Inject all global CSS styles
-inject_css()
+# Note: This will only style standard components now, not custom divs.
+inject_css() 
 
 cfg = get_config()
 
@@ -33,66 +34,55 @@ if not st.session_state.get("__auth_ok"):
 # Role flag
 is_academic = st.session_state.get("is_academic", False)
 
-# Hero section
-st.markdown(
+# --- Hero section (Simplified) ---
+st.header("LLM Coursework Helper")
+st.write(
     """
-<div class="hero">
-  <h1>LLM Coursework Helper</h1>
-  <p>This pilot helps students ideate & draft with an AI assistant while giving academics a transparent, 
-  privacy-aware view of <strong>process evidence</strong> (chat turns & draft evolution).</p>
-</div>
-""",
-    unsafe_allow_html=True,
+    This pilot helps students ideate & draft with an AI assistant while giving academics a transparent, 
+    privacy-aware view of **process evidence** (chat turns & draft evolution).
+    """
 )
+st.divider()
 
-# Two-column landing layout
+# --- Two-column landing layout (Simplified) ---
 col1, col2 = st.columns(2)
 
 with col1:
+    st.subheader("For Students (pilot)")
     st.markdown(
         """
-<div class="card">
-  <h3>For Students <span class="badge">pilot</span></h3>
-  <ul>
-    <li>Brainstorm with the AI (all turns are logged).</li>
-    <li>Draft in the rich editor; autosave & resume anytime.</li>
-    <li>Run <strong>similarity check</strong> vs AI outputs to keep your own voice.</li>
-    <li>Export a <strong>DOCX evidence pack</strong> (chat + draft + similarity).</li>
-    <li><strong>Your responsibility:</strong> follow assessment rules & cite sources.</li>
-  </ul>
-</div>
-""",
-        unsafe_allow_html=True,
+        * Brainstorm with the AI (all turns are logged).
+        * Draft in the rich editor; autosave & resume anytime.
+        * Run **similarity check** vs AI outputs to keep your own voice.
+        * Export a **DOCX evidence pack** (chat + draft + similarity).
+        * **Your responsibility:** follow assessment rules & cite sources.
+        """
     )
 
 with col2:
+    st.subheader("For Academics")
     st.markdown(
         """
-<div class="card">
-  <h3>For Academics</h3>
-  <ul>
-    <li>Dashboard to review students’ <strong>turn-by-turn</strong> interactions.</li>
-    <li>See <strong>latest draft</strong> and AI ↔ student exchanges.</li>
-    <li>Suggested writing-alignment check for oversight (not grading).</li>
-    <li>Data stored: timestamp, student ID (pseudonymous), assignment ID, prompt, response, latest draft snapshot.</li>
-    <li>Data minimisation: no personal identifiers beyond the provided ID.</li>
-  </ul>
-</div>
-""",
-        unsafe_allow_html=True,
+        * Dashboard to review students’ **turn-by-turn** interactions.
+        * See **latest draft** and AI ↔ student exchanges.
+        * Suggested writing-alignment check for oversight (not grading).
+        * Data stored: timestamp, student ID (pseudonymous), assignment ID, prompt, response, latest draft snapshot.
+        * Data minimisation: no personal identifiers beyond the provided ID.
+        """
     )
+
 
 with st.expander("Privacy & Ethics"):
     st.markdown(
         """
-We log **timestamps**, your **Student ID**, **Assignment ID**, each **prompt**, the **AI response**, and saved **draft snapshots**.  
-We do **not** log personal identifiers beyond the ID you enter. The AI output is advisory; you are responsible for citation and originality.
+        We log **timestamps**, your **Student ID**, **Assignment ID**, each **prompt**, the **AI response**, and saved **draft snapshots**.  
+        We do **not** log personal identifiers beyond the ID you enter. The AI output is advisory; you are responsible for citation and originality.
         """
     )
 
 st.divider()
 
-# Quick links & stats
+# --- Quick links & stats (No change needed here) ---
 c1, c2, c3 = st.columns(3)
 
 with c1:
